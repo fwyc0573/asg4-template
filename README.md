@@ -19,7 +19,7 @@
    
    In SFS, there exist the files with the hierarchy shown in the figure below.
    
-   <img title="" src="README_figs/fig2.png" alt="" width="324" data-align="center">
+   <img title="" src="README_figs/fig2_new.png" alt="" width="324" data-align="center">
    
    Here, “/” is the root directory; “dir1”, “dir2”, “dir3”, “dir4”, “dir5”, “dir6”, “dir7”, “dir8”,
    “dir9”, “dir10”, “dir11”, “dir12” and “dir13” are directory file; “file1”, “file2”, “file3”,
@@ -64,7 +64,7 @@
    
    (b) Suppose a user provides the following absolute path:
    
-   **`/dir1/dir2/dir13/file4`**
+   **`/dir1/dir7/dir5/file4`**
    
        Show the sequence of the inode numbers and data block numbers we need to pass in order to **obtain the inode number of file4** (starting from the root directory). (20 marks)
   
