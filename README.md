@@ -91,13 +91,13 @@
 
       #### **Function Definitions**
 
-        1. **`read_t (inum, offset, buff, count)`**:
+        **`read_t (inum, offset, buff, count)`**:
         - inum represents the inode number corresponding to the file, and buff is a pointer to a user-defined buffer where the data will be stored.
         - This function reads data starting from the specified **offset** within the file.
         - The read operation retrieves **count** bytes of data into the buffer buff.
         - Each call to `read_t()` starts from the file’s beginning and reads from the given `offset` anew. It does **not** depend on any prior read operations.
 
-        2. **`read_continue_t (inum, offset, buff, count)`**:
+        **`read_continue_t (inum, offset, buff, count)`**:
         - This function reads data **continuing from the end position reached by the previous `read_t()` or `read_continue_t()` call**.
         - If `read_continue_t()` is called for the first time, it behaves the same way as `read_t()`.
 
