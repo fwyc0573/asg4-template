@@ -135,7 +135,11 @@
 
 ## 3. Submissions
 
+- **For Question 2, you may provide direct answers without showing your process. However, if an answer is incorrect, partial credit cannot be awarded. Therefore, we recommend including calculation steps for any parts you’re uncertain about.**
+
 - **Plagiarism, incorrect file name, and lack of comments** **will result in various degrees of deductions in points.**
+
+- The use of any AI tools is strictly prohibited for this assignment. Violations will result in a score of zero.
 
 - The mandatory part is required to be completed for you. For the bonus part, you would get extra scores if you do it.
 
