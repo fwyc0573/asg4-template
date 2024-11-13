@@ -75,55 +75,61 @@
 
    <img title="" src="README_figs/SFS_inode.png" alt="" width="400" data-align="center">
 
-   Here, each cell represents a 4-byte memory space and the decimal number inside is the unsigned integer stored correspondingly.
+   Here, each cell represents a 4-byte memory space and the decimal number inside is the unsigned integer stored correspondingly. **All data blocks in this file system have the same size**.
 
    **Answer the following questions:**
 
-   (a) [10 Marks]: Given that the maximum size of a single file in SFS is 4104 KB, calculate the size of one data block in the system. Please express your answer in KB.
+   (a) [10 Marks]: 
 
-   (b) [40 Marks]: Assume that the size of one data block is **4 KB**. You are required to determine the sequence of data blocks that will be read from the disk (only include blocks containing file data) when calling the functions `read_t()` and `read_continue_t()` in a user program.
+    - (i) Assume that the size of one data block is **8 KB**. How many cells are there in data block 25?
 
-   #### **Function Definitions**
+    - (ii) Given that the maximum size of the single file in SFS is **4104 KB**, calculate the size of one data block in the system. Please express your answer in **KB**.
 
-    1. **`read_t (inum, offset, buff, count)`**:
-    - inum represents the inode number corresponding to the file, and buff is a pointer to a user-defined buffer where the data will be stored.
-    - This function reads data starting from the specified **offset** within the file.
-    - The read operation retrieves **count** bytes of data into the buffer buff.
-    - Each call to `read_t()` starts from the file’s beginning and reads from the given `offset` anew. It does **not** depend on any prior read operations.
 
-    2. **`read_continue_t (inum, offset, buff, count)`**:
-    - This function reads data **continuing from the end position reached by the previous `read_t()` or `read_continue_t()` call**.
-    - If `read_continue_t()` is called for the first time, it behaves the same way as `read_t()`.
+   (b) [40 Marks]: 
+    - Assume that the size of one data block is **4 KB**. You are required to determine the sequence of data blocks that will be read from the disk (only include blocks containing file data) when calling the functions `read_t()` and `read_continue_t()` in a user program.
 
-    ---
+      #### **Function Definitions**
 
-   ### **Example**
+        1. **`read_t (inum, offset, buff, count)`**:
+        - inum represents the inode number corresponding to the file, and buff is a pointer to a user-defined buffer where the data will be stored.
+        - This function reads data starting from the specified **offset** within the file.
+        - The read operation retrieves **count** bytes of data into the buffer buff.
+        - Each call to `read_t()` starts from the file’s beginning and reads from the given `offset` anew. It does **not** depend on any prior read operations.
 
-    | **Operation Order** | **Function Call**                     | **Data Blocks Accessed (only include those containing file data)** |
-    |---------------------|---------------------------------------|-------------------------------------------------------------------|
-    | 1st Operation       | `read_t (inum, 133, buff, 40);`      | 5                                                                 |
-    | 2nd Operation       | `read_continue_t (inum, 133, buff, 6000);` | 5, 19                                                            |
+        2. **`read_continue_t (inum, offset, buff, count)`**:
+        - This function reads data **continuing from the end position reached by the previous `read_t()` or `read_continue_t()` call**.
+        - If `read_continue_t()` is called for the first time, it behaves the same way as `read_t()`.
 
-    - **Explanation**:
-    - The first operation, `read_t (inum, 133, buff, 40)`, reads **40 bytes** starting at an offset of **133 bytes**. This falls within data block **5**.
-    - For the second operation, `read_continue_t (inum, 133, buff, 6000)`, since it is a `read_continue_t()` call, it continues from where the first read ended:
-        - The first read ends at byte `133 + 40 = 173`.
-        - Thus, the second read begins at byte **173** and reads the next **6000 bytes**, covering blocks **5** and **19**.
+        ---
 
-    ---
+      ### **Example**
 
-   ### **Tasks**
+        | **Operation Order** | **Function Call**                     | **Data Blocks Accessed (only include those containing file data)** |
+        |---------------------|---------------------------------------|-------------------------------------------------------------------|
+        | 1st Operation       | `read_t (inum, 133, buff, 40);`      | 5                                                                 |
+        | 2nd Operation       | `read_continue_t (inum, 133, buff, 6000);` | 5, 19                                                            |
 
-    Based on the inode and data block information provided earlier, determine which data blocks will be accessed for the following function calls:
+        - **Explanation**:
+        - The first operation, `read_t (inum, 133, buff, 40)`, reads **40 bytes** starting at an offset of **133 bytes**. This falls within data block **5**.
+        - For the second operation, `read_continue_t (inum, 133, buff, 6000)`, since it is a `read_continue_t()` call, it continues from where the first read ended:
+            - The first read ends at byte `133 + 40 = 173`.
+            - Thus, the second read begins at byte **173** and reads the next **6000 bytes**, covering blocks **5** and **19**.
 
-    | **Operation Order** | **Function Call**                             | **Data Blocks Accessed (only include those containing file data)** |
-    |---------------------|----------------------------------------------|-------------------------------------------------------------------|
-    | 1st Operation       | `read_t (inum, 7000, buff, 10000);`          |                                                                   |
-    | 2nd Operation       | `read_t (inum, 12000, buff, 26000);`         |                                                                   |
-    | 3rd Operation       | `read_continue_t (inum, 10000, buff, 36000);`|                                                                   |
-    | 4th Operation       | `read_continue_t (inum, 1000, buff, 31000);` |                                                                   |
+        ---
 
-    ---
+      ### **Tasks**
+
+        Based on the inode and data block information provided earlier, determine which data blocks will be accessed for the following function calls:
+
+        | **Operation Order** | **Function Call**                             | **Data Blocks Accessed (only include those containing file data)** |
+        |---------------------|----------------------------------------------|-------------------------------------------------------------------|
+        | 1st Operation       | `read_t (inum, 200, buff, 1000);`          |                                                                   |
+        | 2nd Operation       | `read_t (inum, 5000, buff, 5000);`         |                                                                   |
+        | 3rd Operation       | `read_continue_t (inum, 5000, buff, 3000);`|                                                                   |
+        | 4th Operation       | `read_continue_t (inum, 1000, buff, 20480);` |                                                                   |
+
+        ---
 
 
 
