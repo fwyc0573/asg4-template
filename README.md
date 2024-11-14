@@ -75,7 +75,10 @@
 
    <img title="" src="README_figs/SFS_inode.png" alt="" width="400" data-align="center">
 
-   Here, each cell represents a 4-byte memory space and the decimal number inside is the unsigned integer stored correspondingly. **All data blocks in this file system have the same size**.
+   - Here, each cell represents a 4-byte memory space and the decimal number inside is the unsigned integer stored correspondingly. **All data blocks in this file system have the same size**.
+   - Direct pointers directly link to data blocks. Each direct pointer accesses a specific data block, allowing direct retrieval of file content.In the given inode example, the 1st direct pointer and 2nd direct pointer point to data blocks 5 and 19, respectively, meaning the initial parts of the file are stored in these blocks.
+   - An indirect pointer points to a block that contains additional pointers, each of which links to another data block. This allows the file system to access a larger number of data blocks and therefore supports larger files. In the example, the indirect pointer points to data block 25. Block 25 doesn’t hold file content but instead stores a list of pointers (e.g., to blocks 45, 51, 71, etc.), enabling indirect access to more data blocks as needed for large files.
+
 
    **Answer the following questions:**
 
