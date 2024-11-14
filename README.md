@@ -67,7 +67,7 @@
    **`/dir1/dir7/dir5/file4`**
    
        Show the sequence of the inode numbers and data block numbers we need to pass in order to **obtain the inode number of file4** (starting from the root directory). (20 marks)
-  
+
 
 2. Question Two (50 marks)
 
@@ -90,45 +90,45 @@
     - Assume that the size of one data block is **4 KB**. You are required to determine the sequence of data blocks that will be read from the disk (only include blocks containing file data) when calling the functions `read_t()` and `read_continue_t()` in a user program.
 
       #### **Function Definitions**
-
+    
         **`read_t (inum, offset, buff, count)`**:
         - inum represents the inode number corresponding to the file, and buff is a pointer to a user-defined buffer where the data will be stored.
         - This function reads data starting from the specified **offset** within the file.
         - The read operation retrieves **count** bytes of data into the buffer buff.
         - Each call to `read_t()` starts from the file’s beginning and reads from the given `offset` anew. It does **not** depend on any prior read operations.
-
+    
         **`read_continue_t (inum, offset, buff, count)`**:
         - This function reads data **continuing from the end position reached by the previous `read_t()` or `read_continue_t()` call**.
         - If `read_continue_t()` is called for the first time, it behaves the same way as `read_t()`.
-
+    
         ---
-
+    
       ### **Example**
-
+    
         | **Operation Order** | **Function Call**                     | **Data Blocks Accessed (only include those containing file data)** |
         |---------------------|---------------------------------------|-------------------------------------------------------------------|
         | 1st Operation       | `read_t (inum, 133, buff, 40);`      | 5                                                                 |
         | 2nd Operation       | `read_continue_t (inum, 133, buff, 6000);` | 5, 19                                                            |
-
+    
         - **Explanation**:
         - The first operation, `read_t (inum, 133, buff, 40)`, reads **40 bytes** starting at an offset of **133 bytes**. This falls within data block **5**.
         - For the second operation, `read_continue_t (inum, 133, buff, 6000)`, since it is a `read_continue_t()` call, it continues from where the first read ended:
             - The first read ends at byte `133 + 40 = 173`.
             - Thus, the second read begins at byte **173** and reads the next **6000 bytes**, covering blocks **5** and **19**.
-
+    
         ---
-
+    
       ### **Tasks**
-
+    
         Based on the inode and data block information provided earlier, determine which data blocks will be accessed for the following function calls:
-
+    
         | **Operation Order** | **Function Call**                             | **Data Blocks Accessed (only include those containing file data)** |
         |---------------------|----------------------------------------------|-------------------------------------------------------------------|
         | 1st Operation       | `read_t (inum, 200, buff, 1000);`          |                                                                   |
         | 2nd Operation       | `read_t (inum, 5000, buff, 5000);`         |                                                                   |
         | 3rd Operation       | `read_continue_t (inum, 5000, buff, 3000);`|                                                                   |
         | 4th Operation       | `read_continue_t (inum, 1000, buff, 20480);` |                                                                   |
-
+    
         ---
 
 
@@ -136,22 +136,14 @@
 ## 3. Submissions
 
 - **For Question 2, you may provide direct answers without showing your process. However, if an answer is incorrect, partial credit cannot be awarded. Therefore, we recommend including calculation steps for any parts you’re uncertain about.**
-
 - **Plagiarism, incorrect file name, and lack of comments** **will result in various degrees of deductions in points.**
-
 - The use of any AI tools is strictly prohibited for this assignment. Violations will result in a score of zero.
-
-- The mandatory part is required to be completed for you. For the bonus part, you would get extra scores if you do it.
-
 - In problem1, you need to submit a pdf file named "question1.pdf".
-
 - In problem2, you need to submit a pdf file named "question2.pdf".
-
 - **Assignment directory structure for submission**
   
   - assignment-four-student (repo root directory)
     - mandatory
       - question1.pdf
       - question2.pdf
-
 - YANG,Yitao and FENG,Yicheng are responsible for this assignment. Questions about the assignment via Piazza are welcomed. Due to massive class size, no individual email will be replied. Requests including but not limited to asking TA to set up environment, write code and debug for you will be rejected according to regulations.
