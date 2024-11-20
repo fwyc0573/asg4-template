@@ -102,6 +102,7 @@
     
         **`read_continue_t (inum, offset, buff, count)`**:
         - This function reads data **continuing from the end position reached by the previous `read_t()` or `read_continue_t()` call**.
+        - This function reads data starting from the specified offset, which is relative to the ending position of the last operation.
         - If `read_continue_t()` is called for the first time, it behaves the same way as `read_t()`.
     
         ---
@@ -117,7 +118,7 @@
         - The first operation, `read_t (inum, 133, buff, 40)`, reads **40 bytes** starting at an offset of **133 bytes**. This falls within data block **5**.
         - For the second operation, `read_continue_t (inum, 133, buff, 6000)`, since it is a `read_continue_t()` call, it continues from where the first read ended:
             - The first read ends at byte `133 + 40 = 173`.
-            - Thus, the second read begins at byte **173** and reads the next **6000 bytes**, covering blocks **5** and **19**.
+            - Thus, the second read begins at byte **173+133** and reads the next **6000 bytes**, covering blocks **5** and **19**.
     
         ---
     
